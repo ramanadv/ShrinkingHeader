@@ -60,18 +60,18 @@ public class MainActivity extends Activity {
 		
 	}
 
-	protected int getScroll(ListView listView) {
+	protected int getScroll(ListView listView) {// as list recycles views , getscrollY wont give us how much it has scrolled, hence we use this hack
 		firstChildInList = listView.getChildAt(0);
 		if(firstChildInList == null)return 0;
 		return -firstChildInList.getTop() + listView.getFirstVisiblePosition() * firstChildInList.getHeight();
 	}
 
-	protected void setHeightForView(View v ,int h){
+	protected void setHeightForView(View v ,int h){ //  you need to set params to change height 
 		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)v.getLayoutParams(); 
 		params.height = h;
 		v.setLayoutParams(params);
 	}
-	protected void changeHeight(View view,int scroll) {
+	protected void changeHeight(View view,int scroll) { // this is a simple logic , this is a little shaky , but its the way to go , you can smoothen from here
 		int priceHeight = price.getHeight();
 		if(priceHeight>=screenHeight/4 && priceHeight<=screenHeight/2){
 			setHeightForView(view, screenHeight/2-scroll);
